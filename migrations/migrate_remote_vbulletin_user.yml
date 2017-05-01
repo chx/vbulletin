@@ -6,15 +6,20 @@ source:
     name: changed
   constants:
     empty: ""
+    # This ensures 256 bits of randomness.
     password_bytes: 32
   # url: filled from the migrate_remote_destination.settings config object
   # should look like http://.../vb5/ajax/api/user/save
 process:
   url: constants/url
-  userid: constants/empty
   options: constants/empty
   userfield: constants/empty
   adminoptions: constants/empty
+  userid:
+    plugin: migration
+    migration: migrate_remote_vbulletin_user
+    source: uid
+    no_stub: true
   'user[username]': name
   'user[email]': mail
   password:
