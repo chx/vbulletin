@@ -1,0 +1,5 @@
+name: vBulletin integration
+type: module
+description: Integration with a local vBulletin install
+core: 8.x
+package: Custom

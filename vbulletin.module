@@ -1,0 +1,12 @@
+<?php
+
+use Drupal\Core\Session\AccountInterface;
+use Drupal\vbulletin\VBLogin;
+
+/**
+ * Implements hook_user_login().
+ */
+function vbulletin_user_login(AccountInterface $account) {
+  VBLogin::init(\Drupal::config('vbulletin.setttings')->get('vbpath'));
+  VBLogin::loginWithoutAuthentication($account->getAccountName());
+}
