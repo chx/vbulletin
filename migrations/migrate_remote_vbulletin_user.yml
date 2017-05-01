@@ -1,0 +1,29 @@
+id: migrate_remote_vbulletin_user
+source:
+  # the migrate_drupal_d8 module provides this
+  plugin: d8_user
+  high_water_property:
+    name: changed
+  constants:
+    empty: ""
+    password_bytes: 32
+  # url: filled from the migrate_remote_destination.settings config object
+  # should look like http://.../vb5/ajax/api/user/save
+process:
+  url: constants/url
+  userid: constants/empty
+  options: constants/empty
+  userfield: constants/empty
+  adminoptions: constants/empty
+  'user[username]': name
+  'user[email]': mail
+  password:
+    plugin: callback
+    callable: 'Drupal\Component\Utility\Crypt::randomBytesBase64'
+    source: constants/password_bytes
+destination:
+  plugin: migrate_remote
+  url_property: url
+  ids:
+    id:
+      type: integer
