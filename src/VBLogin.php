@@ -28,6 +28,8 @@ class VBLogin {
     $userinfo = \vB::getDbAssertor()->getRow('user', array('username' => $username));
     $auth = array_intersect_key($userinfo, array_flip(['userid', 'lastvisit', 'lastactivity']));
     $loginInfo = \vB_User::processNewLogin($auth);
+    // Make extra sure there is no admin control panel session.
+    unset($loginInfo['cpsession']);
     \vB5_Auth::setLoginCookies($loginInfo);
   }
 
